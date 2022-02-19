@@ -43,17 +43,6 @@ const Crud = () => {
             .catch((err) => console.log("something wrong with delete"));
     };
 
-    const deleteAll = async () => {
-        const url = "http://localhost:80/user/admin/delete/" + getItem.id;
-        const post = await fetch(url, {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-        })
-            .then((response) => response.json())
-            .then((result) => console.log(result))
-            .catch((err) => console.log("something wrong with delete"));
-    };
-
     const handleSubmit = (event) => {
         console.log("post sent");
         saveItems();
@@ -93,6 +82,7 @@ const Crud = () => {
             <form>
                 <div class="row">
                     <span>
+                        <label for="id">Id</label>
                         <input
                             class="basic-slide"
                             id="id"
@@ -100,9 +90,9 @@ const Crud = () => {
                             placeholder="Your user id"
                             onChange={handleChangeId}
                         />
-                        <label for="id">Id</label>
                     </span>
                     <span>
+                        <label for="forename">Forename</label>
                         <input
                             class="basic-slide"
                             id="forename"
@@ -110,9 +100,9 @@ const Crud = () => {
                             placeholder="Your first name"
                             onChange={handleChangeFName}
                         />
-                        <label for="forename">Forename</label>
                     </span>
                     <span>
+                        <label for="surname">Surname</label>
                         <input
                             class="basic-slide"
                             id="surname"
@@ -120,9 +110,9 @@ const Crud = () => {
                             placeholder="Your surname"
                             onChange={handleChangeSName}
                         />
-                        <label for="surname">Surname</label>
                     </span>
                     <span>
+                        <label for="dob">DOB</label>
                         <input
                             class="basic-slide"
                             id="dob"
@@ -130,9 +120,9 @@ const Crud = () => {
                             placeholder="Your date of birth"
                             onChange={handleChangeDob}
                         />
-                        <label for="dob">DOB</label>
                     </span>
                     <span>
+                        <label for="email">Email</label>
                         <input
                             class="basic-slide"
                             id="email"
@@ -140,9 +130,9 @@ const Crud = () => {
                             placeholder="Your email"
                             onChange={handleChangeEmail}
                         />
-                        <label for="email">Email</label>
                     </span>
                     <span>
+                        <label for="phoneNum">Phone</label>
                         <input
                             class="basic-slide"
                             id="phonenum"
@@ -150,9 +140,9 @@ const Crud = () => {
                             placeholder="Your contact number"
                             onChange={handleChangePhone}
                         />
-                        <label for="phoneNum">Phone</label>
                     </span>
                     <span>
+                        <label for="position">Position</label>
                         <input
                             class="basic-slide"
                             id="position"
@@ -160,7 +150,6 @@ const Crud = () => {
                             placeholder="Your position"
                             onChange={handleChangePosition}
                         />
-                        <label for="position">Position</label>
                     </span>
                 </div>
             </form>
@@ -176,4 +165,3 @@ const Crud = () => {
 };
 
 export default Crud;
-

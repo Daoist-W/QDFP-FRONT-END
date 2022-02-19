@@ -19,8 +19,11 @@
 }
 
 .buttons {
-    width: fit-content;
-    margin: 1px auto;
+    min-height: 100vh;
+    height: fit-content;
+    background: #032429;
+    width: 100%;
+    margin: 0px auto;
 }
 
 .data {
@@ -163,9 +166,9 @@ section {
 }
 .row {
     max-width: 100%;
+    height: fit-content;
     margin: 0 auto;
     padding: 30px 30px;
-    background: #032429;
     @include epic-sides() {
         background: inherit;
     }
@@ -173,45 +176,41 @@ section {
 
     span {
         position: relative;
-        display: inline-block;
+        display: block;
         margin: 30px 10px;
     }
 }
 .basic-slide {
-    display: block;
-    width: 215px;
+    display: inline-block;
+    width: 500px;
     padding: 10px 0 10px 15px;
     font-family: "Open Sans", sans;
     font-size: 130%;
     color: #377d6a;
     background: #efefef;
     border: 0;
-    border-radius: 3px;
     outline: 0;
 
-    &::-webkit-input-placeholder {
-        color: #efefef;
-        text-indent: 0;
-        font-weight: 300;
-    }
+}
 
-    + label {
-        width: 100%;
-        display: inline-block;
-        padding: 10px 15px;
-        text-shadow: 0 1px 0 rgba(19, 74, 70, 0.4);
-        background: #7ab893;
-        border-top-left-radius: 3px;
-        border-bottom-left-radius: 3px;
-    }
+label {
+    display: inline-block;
+    width: 200px;
+    padding: 10px 15px;
+    font-size: 130%;
+    text-shadow: 0 1px 0 rgba(19, 74, 70, 0.4);
+    background: #7ab893;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
 }
 
 
 // https://codepen.io/mildrenben/pen/gbddEj
 
 button {
+    font-size: 150%;
     border: none;
-    background: #377d6a;
+    background: -webkit-linear-gradient(left, #25c481, #25b7c4);
     cursor: pointer;
     border-radius: 3px;
     padding: 6px;
