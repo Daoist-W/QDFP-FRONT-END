@@ -5,7 +5,6 @@ import {
     useParams,
     useLocation
   } from "react-router-dom";
-// use state holds teh information, so acting like a redux store
 
 
 const Profile = props => {
@@ -27,7 +26,7 @@ const Profile = props => {
         // return () => {
         //     setUser({}); // This worked for me ... clean up function 
         //   };
-      }, []); // empty brackets means will only run when component mounts 
+      }, []);
 
     return (
         <div>
