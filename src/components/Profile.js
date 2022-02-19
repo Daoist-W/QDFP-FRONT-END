@@ -1,16 +1,22 @@
 import React, {useState, useEffect} from "react";
 import _ from 'lodash';
+import {
+    Link,
+    useParams,
+    useLocation
+  } from "react-router-dom";
 // use state holds teh information, so acting like a redux store
 
 
-const Profile = ({match}) => {
-    console.log(match);
+const Profile = props => {
+    let params = useParams();
+    let location = useLocation();
 
     // we need to create something to hold these users in 
     const [user, setUser] = useState({});
 
     const fetchItem = async () => {
-        const data = await fetch(`https://fakerapi.it/api/v1/persons?_quantity=1&_gender=male&_birthday_start=2005-01-01`)
+        const data = await fetch(`http://localhost:80/user/admin/` + params.id)
         const user = await data.json();
         setUser(user); // stores objects inside object, with object id as key value pair
     }

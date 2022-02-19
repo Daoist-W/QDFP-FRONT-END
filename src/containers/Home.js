@@ -1,16 +1,14 @@
 import Post from "../components/Post.js";
-import Data from "../components/Data.js"
-import Buttons from "../components/Buttons.js";
+import Crud from "../components/Crud.js";
 
-function Home () {
+function Home (props) {
+
 
 
 
     return (
         <div>
-            <h1>HOME PAGE</h1>
-            <Data />
-            <Buttons />
+            <Crud />
             <Post />
         </div>
     )
