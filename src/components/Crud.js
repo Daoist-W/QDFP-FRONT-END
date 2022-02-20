@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import store from "../store";
+import { getAllUsers, deleteUser } from "../actions";
 
 const Crud = () => {
     const [getItem, setItem] = useState({
@@ -11,11 +13,16 @@ const Crud = () => {
         jobs: [],
     });
 
+    const user = store.getState().user;
+
+
+
     // submission handlers
     const fetchItems = async () => {
         const data = await fetch("http://localhost:80/user/admin")
             .then((response) => response.json())
             .catch((err) => console.log("error with fetching"));
+        store.dispatch(getAllUsers(data))
     };
 
     const saveItems = async () => {
@@ -29,6 +36,7 @@ const Crud = () => {
         })
             .then((response) => response.json())
             .then((result) => console.log(result))
+            .then(() => fetchItems())
             .catch((err) => console.log("something wrong with post"));
     };
 
@@ -40,17 +48,7 @@ const Crud = () => {
         })
             .then((response) => response.json())
             .then((result) => console.log(result))
-            .catch((err) => console.log("something wrong with delete"));
-    };
-
-    const deleteAll = async () => {
-        const url = "http://localhost:80/user/admin/delete/" + getItem.id;
-        const post = await fetch(url, {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-        })
-            .then((response) => response.json())
-            .then((result) => console.log(result))
+            .then(() => store.dispatch(deleteUser(getItem.id)))
             .catch((err) => console.log("something wrong with delete"));
     };
 
@@ -91,89 +89,87 @@ const Crud = () => {
     return (
         <div className="buttons">
             <form>
-                <div class="row">
+                <div className="row">
                     <span>
+                        <label htmlFor="id">Id</label>
                         <input
-                            class="basic-slide"
+                            className="basic-slide"
                             id="id"
                             type="text"
                             placeholder="Your user id"
                             onChange={handleChangeId}
                         />
-                        <label for="id">Id</label>
                     </span>
                     <span>
+                        <label htmlFor="forename">Forename</label>
                         <input
-                            class="basic-slide"
+                            className="basic-slide"
                             id="forename"
                             type="text"
                             placeholder="Your first name"
                             onChange={handleChangeFName}
                         />
-                        <label for="forename">Forename</label>
                     </span>
                     <span>
+                        <label htmlFor="surname">Surname</label>
                         <input
-                            class="basic-slide"
+                            className="basic-slide"
                             id="surname"
                             type="text"
                             placeholder="Your surname"
                             onChange={handleChangeSName}
                         />
-                        <label for="surname">Surname</label>
                     </span>
                     <span>
+                        <label htmlFor="dob">DOB</label>
                         <input
-                            class="basic-slide"
+                            className="basic-slide"
                             id="dob"
                             type="text"
                             placeholder="Your date of birth"
                             onChange={handleChangeDob}
                         />
-                        <label for="dob">DOB</label>
                     </span>
                     <span>
+                        <label htmlFor="email">Email</label>
                         <input
-                            class="basic-slide"
+                            className="basic-slide"
                             id="email"
                             type="text"
                             placeholder="Your email"
                             onChange={handleChangeEmail}
                         />
-                        <label for="email">Email</label>
                     </span>
                     <span>
+                        <label htmlFor="phoneNum">Phone</label>
                         <input
-                            class="basic-slide"
+                            className="basic-slide"
                             id="phonenum"
                             type="text"
                             placeholder="Your contact number"
                             onChange={handleChangePhone}
                         />
-                        <label for="phoneNum">Phone</label>
                     </span>
                     <span>
+                        <label htmlFor="position">Position</label>
                         <input
-                            class="basic-slide"
+                            className="basic-slide"
                             id="position"
                             type="text"
                             placeholder="Your position"
                             onChange={handleChangePosition}
                         />
-                        <label for="position">Position</label>
                     </span>
                 </div>
             </form>
-            <div class="row">
+            <div className="row">
                 <button onClick={fetchItems}>Refresh</button>
                 <button onClick={handleSubmit}>Create</button>
                 <button onClick={handleSubmit}>Update</button>
                 <button onClick={deleteItem}>Delete</button>
-                <button onClick={deleteItem}>Delete All</button>
             </div>
         </div>
     );
 };
 
 export default Crud;
-
