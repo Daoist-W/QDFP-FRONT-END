@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import store from "../store";
+import { getAllUsers, deleteUser } from "../actions";
 
 const Crud = () => {
     const [getItem, setItem] = useState({
@@ -11,11 +13,16 @@ const Crud = () => {
         jobs: [],
     });
 
+    const user = store.getState().user;
+
+
+
     // submission handlers
     const fetchItems = async () => {
         const data = await fetch("http://localhost:80/user/admin")
             .then((response) => response.json())
             .catch((err) => console.log("error with fetching"));
+        store.dispatch(getAllUsers(data))
     };
 
     const saveItems = async () => {
@@ -29,6 +36,7 @@ const Crud = () => {
         })
             .then((response) => response.json())
             .then((result) => console.log(result))
+            .then(() => fetchItems())
             .catch((err) => console.log("something wrong with post"));
     };
 
@@ -40,6 +48,7 @@ const Crud = () => {
         })
             .then((response) => response.json())
             .then((result) => console.log(result))
+            .then(() => store.dispatch(deleteUser(getItem.id)))
             .catch((err) => console.log("something wrong with delete"));
     };
 
@@ -80,11 +89,11 @@ const Crud = () => {
     return (
         <div className="buttons">
             <form>
-                <div class="row">
+                <div className="row">
                     <span>
-                        <label for="id">Id</label>
+                        <label htmlFor="id">Id</label>
                         <input
-                            class="basic-slide"
+                            className="basic-slide"
                             id="id"
                             type="text"
                             placeholder="Your user id"
@@ -92,9 +101,9 @@ const Crud = () => {
                         />
                     </span>
                     <span>
-                        <label for="forename">Forename</label>
+                        <label htmlFor="forename">Forename</label>
                         <input
-                            class="basic-slide"
+                            className="basic-slide"
                             id="forename"
                             type="text"
                             placeholder="Your first name"
@@ -102,9 +111,9 @@ const Crud = () => {
                         />
                     </span>
                     <span>
-                        <label for="surname">Surname</label>
+                        <label htmlFor="surname">Surname</label>
                         <input
-                            class="basic-slide"
+                            className="basic-slide"
                             id="surname"
                             type="text"
                             placeholder="Your surname"
@@ -112,9 +121,9 @@ const Crud = () => {
                         />
                     </span>
                     <span>
-                        <label for="dob">DOB</label>
+                        <label htmlFor="dob">DOB</label>
                         <input
-                            class="basic-slide"
+                            className="basic-slide"
                             id="dob"
                             type="text"
                             placeholder="Your date of birth"
@@ -122,9 +131,9 @@ const Crud = () => {
                         />
                     </span>
                     <span>
-                        <label for="email">Email</label>
+                        <label htmlFor="email">Email</label>
                         <input
-                            class="basic-slide"
+                            className="basic-slide"
                             id="email"
                             type="text"
                             placeholder="Your email"
@@ -132,9 +141,9 @@ const Crud = () => {
                         />
                     </span>
                     <span>
-                        <label for="phoneNum">Phone</label>
+                        <label htmlFor="phoneNum">Phone</label>
                         <input
-                            class="basic-slide"
+                            className="basic-slide"
                             id="phonenum"
                             type="text"
                             placeholder="Your contact number"
@@ -142,9 +151,9 @@ const Crud = () => {
                         />
                     </span>
                     <span>
-                        <label for="position">Position</label>
+                        <label htmlFor="position">Position</label>
                         <input
-                            class="basic-slide"
+                            className="basic-slide"
                             id="position"
                             type="text"
                             placeholder="Your position"
@@ -153,12 +162,11 @@ const Crud = () => {
                     </span>
                 </div>
             </form>
-            <div class="row">
+            <div className="row">
                 <button onClick={fetchItems}>Refresh</button>
                 <button onClick={handleSubmit}>Create</button>
                 <button onClick={handleSubmit}>Update</button>
                 <button onClick={deleteItem}>Delete</button>
-                <button onClick={deleteItem}>Delete All</button>
             </div>
         </div>
     );

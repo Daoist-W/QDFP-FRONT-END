@@ -1,4 +1,5 @@
 // https://codepen.io/nikhil8krishnan/pen/WvYPvv
+@import url("https://cdn.jsdelivr.net/npm/codemirror@5.61.0/lib/codemirror.min.css");
 
 .container {
     width: 600px;
@@ -207,7 +208,7 @@ label {
 
 // https://codepen.io/mildrenben/pen/gbddEj
 
-button {
+.row button {
     font-size: 150%;
     border: none;
     background: -webkit-linear-gradient(left, #25c481, #25b7c4);
@@ -222,4 +223,44 @@ button {
       transform: translateY(-3px);
       box-shadow: 0 6px 6px 0 rgba(0,0,0,0.2);
     }
+  }
+
+
+
+//   profile css
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+  }
+  
+  .title {
+    color: grey;
+    font-size: 18px;
+  }
+  
+  .profileButton {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+  }
+  
+  .profile-link {
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 22px;
+    color: black;
+  }
+  
+  .profileButton:hover, a:hover {
+    opacity: 0.7;
   }
