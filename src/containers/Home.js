@@ -3,9 +3,6 @@ import Crud from "../components/Crud.js";
 
 function Home (props) {
 
-
-
-
     return (
         <div>
             <Crud />
