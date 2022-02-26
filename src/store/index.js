@@ -46,7 +46,7 @@ const initialState = {
         surname: "brand",
         dob: "1991-09-15",
         email: "don@youmail.com",
-        phoneNum: "+4475649589",
+        phoneNum: "+411111111",
         jobs: [],
         availabilities: []
     }

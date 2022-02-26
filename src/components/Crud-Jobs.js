@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import store from "../store";
 import { getAllUsers, deleteUser } from "../actions";
 
-const Crud = () => {
-    const [getItem, setItem] = useState({
+const CrudJobs = () => {
+    const [getUser, setUser] = useState({
         position_: "staff",
         forename: "test",
         surname: "testing",
@@ -15,75 +15,105 @@ const Crud = () => {
 
     const user = store.getState().user;
 
-
+    // scrolling mechanism
+    const table = useRef(null)
+    
+    const executeScroll = () => table.current.scrollIntoView({behavior: "smooth"})    
 
     // submission handlers
-    const fetchItems = async () => {
+    const fetchUsers = async () => {
         const data = await fetch("http://localhost:80/user/admin")
             .then((response) => response.json())
             .catch((err) => console.log("error with fetching"));
         store.dispatch(getAllUsers(data))
     };
 
-    const saveItems = async () => {
-        setItem({ id: null });
+    const saveUser = async () => {
+        setUser({ id: null });
         const post = await fetch("http://localhost:80/user/create", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(getItem),
+            body: JSON.stringify({
+                position_: getUser.position_,
+                forename: getUser.forename,
+                surname: getUser.surname,
+                dob: getUser.dob,
+                email: getUser.email,
+                phoneNum: getUser.phoneNum,
+                jobs: getUser.jobs,
+            }),
         })
             .then((response) => response.json())
             .then((result) => console.log(result))
-            .then(() => fetchItems())
+            .then(() => fetchUsers())
+            .catch((err) => console.log("something wrong with post"));
+    };
+
+    const updateUser = async () => {
+        const post = await fetch("http://localhost:80/user/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(getUser),
+        })
+            .then((response) => response.json())
+            .then((result) => console.log(result))
+            .then(() => fetchUsers())
             .catch((err) => console.log("something wrong with post"));
     };
 
     const deleteItem = async () => {
-        const url = "http://localhost:80/user/admin/delete/" + getItem.id;
+        const url = "http://localhost:80/user/admin/delete/" + getUser.id;
         const post = await fetch(url, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
         })
             .then((response) => response.json())
             .then((result) => console.log(result))
-            .then(() => store.dispatch(deleteUser(getItem.id)))
+            .then(() => store.dispatch(deleteUser(getUser.id)))
             .catch((err) => console.log("something wrong with delete"));
     };
 
-    const handleSubmit = (event) => {
+    const handleCreate = (event) => {
         console.log("post sent");
-        saveItems();
+        saveUser();
     };
+
+    const handleUpdate = (event) => {
+        console.log("update sent")
+        updateUser();
+    }
 
     // change handlers
     const handleChangeId = (event) => {
-        setItem({ ...getItem, id: event.target.value });
+        setUser({ ...getUser, id: event.target.value });
     };
 
     const handleChangeFName = (event) => {
-        setItem({ ...getItem, forename: event.target.value });
+        setUser({ ...getUser, forename: event.target.value });
     };
 
     const handleChangeSName = (event) => {
-        setItem({ ...getItem, surname: event.target.value });
+        setUser({ ...getUser, surname: event.target.value });
     };
 
     const handleChangeDob = (event) => {
-        setItem({ ...getItem, dob: event.target.value });
+        setUser({ ...getUser, dob: event.target.value });
     };
 
     const handleChangeEmail = (event) => {
-        setItem({ ...getItem, email: event.target.value });
+        setUser({ ...getUser, email: event.target.value });
     };
 
     const handleChangePhone = (event) => {
-        setItem({ ...getItem, phoneNum: event.target.value });
+        setUser({ ...getUser, phoneNum: event.target.value });
     };
 
     const handleChangePosition = (event) => {
-        setItem({ ...getItem, position_: event.target.value });
+        setUser({ ...getUser, position_: event.target.value });
     };
 
     return (
@@ -163,13 +193,14 @@ const Crud = () => {
                 </div>
             </form>
             <div className="row">
-                <button onClick={fetchItems}>Refresh</button>
-                <button onClick={handleSubmit}>Create</button>
-                <button onClick={handleSubmit}>Update</button>
-                <button onClick={deleteItem}>Delete</button>
+                <button onClick={fetchUsers, executeScroll}>Refresh</button>
+                <button onClick={handleCreate, executeScroll}>Create</button>
+                <button onClick={handleUpdate, executeScroll}>Update</button>
+                <button onClick={deleteItem, executeScroll}>Delete</button>
             </div>
+            <div ref={table}></div>
         </div>
     );
 };
 
-export default Crud;
+export default CrudJobs;

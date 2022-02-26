@@ -3,8 +3,6 @@
 
 ---
 
-https://github.com/Daoist-W/QDFP-FRONT-END/blob/feature-jobs/public/images/profile.png
-
 ### Dynamically generated page example, data is fetched from the data base and used to generate URL's and html content
 ![alt text](https://github.com/Daoist-W/QDFP-FRONT-END/blob/feature-jobs/public/images/profile.png "Screengrab of user profile page")
 > Click on Image for better resolution

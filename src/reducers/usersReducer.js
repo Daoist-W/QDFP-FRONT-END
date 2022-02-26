@@ -14,9 +14,10 @@ export const users = (state=[], action) => {
             state.filter(user => user.id != action.payload)
             return [
                 ...state,
-                action
+                action.payload
             ]
         default:
             return state
     }
 }
+

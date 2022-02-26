@@ -3,7 +3,10 @@ import React from "react";
 import Nav from "./components/Nav";
 import Login from "./containers/Login";
 import Home from "./containers/Home";
-import Profile from "./components/Profile";
+import JobCenter from "./containers/JobCenter";
+import UserCenter from "./containers/UserCenter";
+import User from "./components/User";
+import Job from "./components/Job";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -30,7 +33,10 @@ function App() {
                 <Routes>
                     <Route path="/login" element={<Login />} />
                     <Route path="/home" element={<Home />} />
-                    <Route path="/home/:id" element={<Profile />} />
+                    <Route path="/user/center" element={<UserCenter />} />
+                    <Route path="/job/center" element={<JobCenter />} />
+                    <Route path="/user/:id" element={<User />} />
+                    <Route path="/jobs/:id" element={<Job />} />
                 </Routes>
             </Router>
         </div>
