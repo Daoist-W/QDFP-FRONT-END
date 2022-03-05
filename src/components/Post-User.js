@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import store from "../store";
 import { getAllUsers } from "../actions";
 
-const Post = (props) => {
+const PostUser = (props) => {
     // setting up store configuration 
     const unsubscribe = store.subscribe(() => {
         console.log("Store updated!!", store.getState());
@@ -67,7 +67,7 @@ const Post = (props) => {
     );
 };
 
-export default Post;
+export default PostUser;
 
 const test = () => {
 

@@ -2,6 +2,8 @@ import {createStore} from "redux";
 import { combineReducers } from "redux";
 import {users} from "../reducers/usersReducer";
 import {user} from "../reducers/userReducer";
+import { jobs } from "../reducers/jobsReducer";
+import { job } from "../reducers/jobReducer";
 
 const initialState = {
     users: [
@@ -49,10 +51,34 @@ const initialState = {
         phoneNum: "+411111111",
         jobs: [],
         availabilities: []
+    },
+    jobs: [
+        {
+            id: 1,
+            title: "topjob3",
+            description_: "best job in the world",
+            location: "London",
+            startDate: "2022-02-04",
+            endDate: "2022-02-06",
+            user: {
+                id: 2
+            }
+        }
+    ],
+    job: {
+        id: 1,
+        title: "topjob3",
+        description_: "best job in the world",
+        location: "London",
+        startDate: "2022-02-04",
+        endDate: "2022-02-06",
+        user: {
+            id: 2
+        }
     }
 }
 
-const store = createStore(combineReducers({users, user}), initialState);
+const store = createStore(combineReducers({users, user, jobs, job}), initialState);
 // the names of the reducers should ideally match the key values inside your store
 // redux will pick this up and assign the names accordingly
 // https://stackoverflow.com/questions/40053159/redux-unexpected-key-found-in-preloadedstate-argument-passed-to-createstore

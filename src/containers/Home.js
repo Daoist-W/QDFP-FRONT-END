@@ -1,12 +1,14 @@
-import Post from "../components/Post.js";
-import Crud from "../components/Crud-Users.js";
+
 
 function Home (props) {
 
     return (
         <div>
-            <Crud />
-            <Post />
+            {/* 
+                TODO: Needs a menu style layout 
+                -> Find Jobs
+                -> Find Users
+            */}
         </div>
     )
 

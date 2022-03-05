@@ -1,119 +1,120 @@
 import React, { useState, useRef } from "react";
 import store from "../store";
-import { getAllUsers, deleteUser } from "../actions";
+import { getAllJobs, deleteJob } from "../actions";
 
 const CrudJobs = () => {
-    const [getUser, setUser] = useState({
-        position_: "staff",
-        forename: "test",
-        surname: "testing",
-        dob: "1991-09-15",
-        email: "test:youmail.com",
-        phoneNum: "+123465789",
-        jobs: [],
+
+    const [getJob, setJob] = useState({
+        title: "topjob3",
+        description_: "best job in the world",
+        location: "London",
+        startDate: "2022-02-04",
+        endDate: "2022-02-06",
+        user: {
+            "id": 2
+        }
     });
 
-    const user = store.getState().user;
+    const job = store.getState().job;
 
     // scrolling mechanism
-    const table = useRef(null)
+    // const table = useRef(null)
     
-    const executeScroll = () => table.current.scrollIntoView({behavior: "smooth"})    
+    // const executeScroll = () => table.current.scrollIntoView({behavior: "smooth"})    
 
     // submission handlers
-    const fetchUsers = async () => {
-        const data = await fetch("http://localhost:80/user/admin")
+    const fetchJobs = async () => {
+        const data = await fetch("http://localhost:80/jobs")
             .then((response) => response.json())
             .catch((err) => console.log("error with fetching"));
-        store.dispatch(getAllUsers(data))
+        store.dispatch(getAllJobs(data))
     };
 
-    const saveUser = async () => {
-        setUser({ id: null });
-        const post = await fetch("http://localhost:80/user/create", {
+    const saveJob = async () => {
+        setJob({ id: null });
+        const post = await fetch("http://localhost:80/jobs/admin/create", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                position_: getUser.position_,
-                forename: getUser.forename,
-                surname: getUser.surname,
-                dob: getUser.dob,
-                email: getUser.email,
-                phoneNum: getUser.phoneNum,
-                jobs: getUser.jobs,
+                title: getJob.title,
+                description_: getJob.description_,
+                location: getJob.location,
+                startDate: getJob.startDate,
+                endDate: getJob.endDate,
+                user: getJob.user,
             }),
         })
             .then((response) => response.json())
             .then((result) => console.log(result))
-            .then(() => fetchUsers())
+            .then(() => fetchJobs())
             .catch((err) => console.log("something wrong with post"));
     };
 
-    const updateUser = async () => {
-        const post = await fetch("http://localhost:80/user/create", {
-            method: "POST",
+    const updateJob = async () => {
+        const post = await fetch("http://localhost:80/jobs/admin/" + getJob.id, {
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(getUser),
+            body: JSON.stringify(getJob),
         })
             .then((response) => response.json())
             .then((result) => console.log(result))
-            .then(() => fetchUsers())
+            .then(() => fetchJobs())
             .catch((err) => console.log("something wrong with post"));
     };
 
     const deleteItem = async () => {
-        const url = "http://localhost:80/user/admin/delete/" + getUser.id;
+        const url = "http://localhost:80/jobs/admin/delete/" + getJob.id;
         const post = await fetch(url, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
         })
             .then((response) => response.json())
             .then((result) => console.log(result))
-            .then(() => store.dispatch(deleteUser(getUser.id)))
+            .then(() => store.dispatch(deleteJob(getJob.id)))
             .catch((err) => console.log("something wrong with delete"));
     };
 
     const handleCreate = (event) => {
         console.log("post sent");
-        saveUser();
+        saveJob();
     };
 
     const handleUpdate = (event) => {
         console.log("update sent")
-        updateUser();
+        updateJob();
     }
 
     // change handlers
     const handleChangeId = (event) => {
-        setUser({ ...getUser, id: event.target.value });
+        setJob({ ...getJob, id: event.target.value });
     };
 
-    const handleChangeFName = (event) => {
-        setUser({ ...getUser, forename: event.target.value });
+    const handleChangeTitle = (event) => {
+        setJob({ ...getJob, title: event.target.value });
     };
 
-    const handleChangeSName = (event) => {
-        setUser({ ...getUser, surname: event.target.value });
+    const handleChangeDescription = (event) => {
+        setJob({ ...getJob, description_: event.target.value });
     };
 
-    const handleChangeDob = (event) => {
-        setUser({ ...getUser, dob: event.target.value });
+    const handleChangLocation = (event) => {
+        setJob({ ...getJob, location: event.target.value });
     };
 
-    const handleChangeEmail = (event) => {
-        setUser({ ...getUser, email: event.target.value });
+    const handleChangeStartDate = (event) => {
+        setJob({ ...getJob, startDate: event.target.value });
     };
 
-    const handleChangePhone = (event) => {
-        setUser({ ...getUser, phoneNum: event.target.value });
+    const handleChangeEndDate = (event) => {
+        setJob({ ...getJob, endDate: event.target.value });
     };
 
-    const handleChangePosition = (event) => {
-        setUser({ ...getUser, position_: event.target.value });
+    const handleChangeUser = (event) => {
+        setJob({ ...getJob, user: event.target.value });
     };
 
     return (
@@ -126,79 +127,79 @@ const CrudJobs = () => {
                             className="basic-slide"
                             id="id"
                             type="text"
-                            placeholder="Your user id"
+                            placeholder="Job user id"
                             onChange={handleChangeId}
                         />
                     </span>
                     <span>
-                        <label htmlFor="forename">Forename</label>
+                        <label htmlFor="forename">Title</label>
                         <input
                             className="basic-slide"
-                            id="forename"
+                            id="title"
                             type="text"
-                            placeholder="Your first name"
-                            onChange={handleChangeFName}
+                            placeholder="Job Title"
+                            onChange={handleChangeTitle}
                         />
                     </span>
                     <span>
-                        <label htmlFor="surname">Surname</label>
+                        <label htmlFor="surname">Description</label>
                         <input
                             className="basic-slide"
-                            id="surname"
+                            id="description_"
                             type="text"
-                            placeholder="Your surname"
-                            onChange={handleChangeSName}
+                            placeholder="Job Description"
+                            onChange={handleChangeDescription}
                         />
                     </span>
                     <span>
-                        <label htmlFor="dob">DOB</label>
+                        <label htmlFor="dob">Location</label>
                         <input
                             className="basic-slide"
-                            id="dob"
+                            id="location"
                             type="text"
-                            placeholder="Your date of birth"
-                            onChange={handleChangeDob}
+                            placeholder="Job Location"
+                            onChange={handleChangLocation}
                         />
                     </span>
                     <span>
-                        <label htmlFor="email">Email</label>
+                        <label htmlFor="email">Start Date</label>
                         <input
                             className="basic-slide"
-                            id="email"
+                            id="start-date"
                             type="text"
-                            placeholder="Your email"
-                            onChange={handleChangeEmail}
+                            placeholder="Job Start Date"
+                            onChange={handleChangeStartDate}
                         />
                     </span>
                     <span>
-                        <label htmlFor="phoneNum">Phone</label>
+                        <label htmlFor="phoneNum">End Date</label>
                         <input
                             className="basic-slide"
-                            id="phonenum"
+                            id="end-date"
                             type="text"
-                            placeholder="Your contact number"
-                            onChange={handleChangePhone}
+                            placeholder="Job End Date"
+                            onChange={handleChangeEndDate}
                         />
                     </span>
                     <span>
-                        <label htmlFor="position">Position</label>
+                        <label htmlFor="position">Assigned User ID</label>
                         <input
                             className="basic-slide"
-                            id="position"
+                            id="user"
                             type="text"
-                            placeholder="Your position"
-                            onChange={handleChangePosition}
+                            placeholder="Job Assigned User ID"
+                            onChange={handleChangeUser}
                         />
                     </span>
                 </div>
             </form>
             <div className="row">
-                <button onClick={fetchUsers, executeScroll}>Refresh</button>
-                <button onClick={handleCreate, executeScroll}>Create</button>
-                <button onClick={handleUpdate, executeScroll}>Update</button>
-                <button onClick={deleteItem, executeScroll}>Delete</button>
+                <button onClick={fetchJobs}>Refresh</button>
+                <button onClick={handleCreate}>Create</button>
+                <button onClick={handleUpdate}>Update</button>
+                <button onClick={deleteItem}>Delete</button>
             </div>
-            <div ref={table}></div>
+            <div ></div>
         </div>
     );
 };

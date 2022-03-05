@@ -36,7 +36,7 @@ function App() {
                     <Route path="/user/center" element={<UserCenter />} />
                     <Route path="/job/center" element={<JobCenter />} />
                     <Route path="/user/:id" element={<User />} />
-                    <Route path="/jobs/:id" element={<Job />} />
+                    <Route path="/job/:id" element={<Job />} />
                 </Routes>
             </Router>
         </div>
